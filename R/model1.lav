@@ -1,0 +1,25 @@
+# latent variable definitions
+length =~ n_tokens_title + n_tokens_content
+complexity =~ average_token_length + n_unique_tokens + n_non_stop_words + n_non_stop_unique_tokens
+media =~ num_imgs + num_videos
+sources =~ num_hrefs + num_self_hrefs
+context_popularity =~ self_reference_avg_sharess + kw_avg_avg + kw_max_avg + kw_avg_max + kw_avg_min
+subjectivity =~ title_subjectivity + global_subjectivity + abs_title_subjectivity
+polarity =~ title_sentiment_polarity + global_sentiment_polarity + abs_title_sentiment_polarity
+positivity =~ global_rate_positive_words + rate_positive_words + avg_positive_polarity
+negativity =~ global_rate_negative_words + rate_negative_words + avg_negative_polarity
+LDA =~ LDA_00 + LDA_01 + LDA_02 + LDA_03 + LDA_04
+category =~ data_channel_is_lifestyle + data_channel_is_entertainment + data_channel_is_bus + data_channel_is_socmed + data_channel_is_tech + data_channel_is_world
+
+
+# covariance
+length ~~ media
+complexity ~~ length + media
+subjectivity ~~ polarity
+polarity ~~ positivity + negativity
+positivity ~~ negativity
+LDA ~~ category
+
+
+# gather all relevant factors
+shares ~ length + complexity + media + sources + context_popularity + subjectivity + polarity + positivity + negativity + is_weekend + LDA + category
