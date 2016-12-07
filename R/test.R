@@ -1,7 +1,7 @@
 library(lavaan)
 library(semPlot)
 
-d <- readData()
+d <- preprocess(readData())
 
 # Lavaan model
 #model <- '
