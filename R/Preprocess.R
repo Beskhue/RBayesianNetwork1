@@ -27,7 +27,16 @@ preprocess = function(d) {
 }
 
 get_names_to_standardise = function() {
-  return(get_names_to_log());
+   v <- get_var_names();
+   do_not_standardise <- c('url', 
+                           'data_channel_is_lifestyle', 'data_channel_is_entertainment',
+                           'data_channel_is_bus', 'data_channel_is_socmed',
+                           'data_channel_is_tech', 'data_channel_is_world',
+                           'weekday_is_monday', 'weekday_is_tuesday', 'weekday_is_wednesday',
+                           'weekday_is_thursday', 'weekday_is_friday', 'weekday_is_saturday',
+                           'weekday_is_sunday', 'is_weekend');
+   # Perhaps add timedelta to do_not_standardise list?
+   return(v[!(v %in% do_not_standardise)]);
 }
 
 get_names_to_log = function() {
