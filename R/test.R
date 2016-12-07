@@ -3,6 +3,9 @@ library(semPlot)
 
 d <- preprocess(readData())
 
+fitData <- d[['fit']];
+testData <- d[['test']];
+
 # Lavaan model
 #model <- '
 #  # regressions
@@ -13,7 +16,7 @@ d <- preprocess(readData())
 model <- readLines('model1.lav');
 
 # Run lavaan
-fit <- sem(model, data=d)
+fit <- sem(model, data=fitData)
 
 # Output model summary
 summary(fit, standardized=TRUE)

@@ -23,7 +23,22 @@ preprocess = function(d) {
     }
   }
   
-  return(data.frame(d));
+  # partition data frame into a fiting and testing set
+  # 80% of the data set is used for fitting
+  smp_size <- floor(0.8*nrow(d));
+  
+  # seed for reproducability
+  set.seed(42);
+  
+  fit_indices <- sample(seq_len(nrow(d)), size = smp_size);
+  
+  fit <- data.frame(d[fit_indices, ]);
+  test <- data.frame(d[-fit_indices, ]);
+  
+  partition <- list(fit, test);
+  names(partition) <- c('fit', 'test')
+  
+  return(partition);
 }
 
 get_names_to_standardise = function() {
