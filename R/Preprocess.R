@@ -25,7 +25,7 @@ preprocess = function(d) {
   
   # partition data frame into a fiting and testing set
   # 80% of the data set is used for fitting
-  smp_size <- floor(0.8*nrow(d));
+  smp_size <- floor(0.80*nrow(d));
   
   # seed for reproducability
   set.seed(42);
@@ -34,6 +34,12 @@ preprocess = function(d) {
   
   fit <- data.frame(d[fit_indices, ]);
   test <- data.frame(d[-fit_indices, ]);
+  
+  # Set ordered data as being ordered
+  categorical_var_names <- get_categorical_var_names();
+  fit[,categorical_var_names] <- lapply(fit[,categorical_var_names], ordered);
+  test[,categorical_var_names] <- lapply(test[,categorical_var_names], ordered);
+  
   
   partition <- list(fit, test);
   names(partition) <- c('fit', 'test')
@@ -83,4 +89,13 @@ get_var_names = function() {
            'max_positive_polarity', 'avg_negative_polarity', 'min_negative_polarity',
            'max_negative_polarity', 'title_subjectivity', 'title_sentiment_polarity',
            'abs_title_subjectivity', 'abs_title_sentiment_polarity', 'shares'));
+}
+
+get_categorical_var_names = function() {
+  return(c('data_channel_is_lifestyle', 
+           'data_channel_is_entertainment', 'data_channel_is_bus', 
+           'data_channel_is_socmed', 'data_channel_is_tech', 'data_channel_is_world',
+           'weekday_is_monday', 'weekday_is_tuesday',
+           'weekday_is_wednesday', 'weekday_is_thursday', 'weekday_is_friday',
+           'weekday_is_saturday', 'weekday_is_sunday', 'is_weekend'));
 }
