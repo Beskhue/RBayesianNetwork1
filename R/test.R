@@ -1,5 +1,7 @@
 library(lavaan)
 library(semPlot)
+source('ReadData.R')
+source('Preprocess.R')
 
 d <- preprocess(readData())
 
