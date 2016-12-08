@@ -8,7 +8,7 @@ predict_model_all = function(fit, d) {
   predictions <- (
                   d["log_n_tokens_title"] * pars["log_n_tokens_title",]
                 + d["log_n_tokens_content"] * pars["log_n_tokens_content",]
-                + lv[,"complexity"] * pars["log_n_tokens_content",]
+                + lv[,"complexity"] * pars["complexity",]
                 + d["log_num_imgs"] * pars["log_num_imgs",]
                 + d["log_num_videos"] * pars["log_num_videos",]
                 + lv[,"sources"] * pars["sources",]
@@ -33,4 +33,33 @@ predict_model_all = function(fit, d) {
   error <- sum((d["log_shares"] - predictions)^2);
   
   return(error);
+}
+
+test_error = function(fit, d) {
+  predictions <- predict_model(fit, d)
+  error <- sum(abs(d["log_shares"] - predictions))/nrow(d);
+  return(error);
+}
+
+predict_model = function(fit, d) {
+  pars <- parTable(fit)
+  pars <- pars[pars$op == '~',c(4,13)]
+  pars <- data.frame(pars[,2], row.names=pars[,1])
+  
+  lv <- lavPredict(fit, type = "lv", newdata = d)
+  
+  predictions <- rep(0, nrow(d))
+  
+  var_names <- rownames(pars)
+  latent_var_names <- colnames(lv)
+  
+  for (var_name in var_names) {
+    if (var_name %in% latent_var_names) {
+      predictions <- predictions + lv[,var_name] * pars[var_name,]
+    } else {
+      predictions <- predictions + d[var_name] * pars[var_name,]
+    }
+  }
+  
+  return(predictions);
 }
