@@ -1,34 +1,42 @@
 # total regression formula
-log_shares ~ log_n_tokens_title + log_n_tokens_content + log_average_token_length + log_n_unique_tokens + log_n_non_stop_words + log_n_non_stop_unique_tokens + log_num_imgs + log_num_videos + log_num_hrefs + log_num_self_hrefs + log_self_reference_avg_sharess + log_kw_avg_avg + log_kw_max_avg + log_kw_avg_max + log_kw_avg_min + title_subjectivity + global_subjectivity + abs_title_subjectivity + title_sentiment_polarity + global_sentiment_polarity + abs_title_sentiment_polarity + global_rate_positive_words + rate_positive_words + avg_positive_polarity + global_rate_negative_words + rate_negative_words + avg_negative_polarity + LDA_00 + LDA_01 + LDA_02 + LDA_03 + LDA_04 + data_channel_is_lifestyle + data_channel_is_entertainment + data_channel_is_bus + data_channel_is_socmed + data_channel_is_tech + data_channel_is_world
+log_shares ~ log_n_tokens_title + log_n_tokens_content + complexity +
+  log_num_imgs + log_num_videos + sources + popularity + subjectivity +
+  polarity + positivity + negativity + LDA_00 + LDA_01 + LDA_02 + LDA_03 + LDA_04 +
+  data_channel_is_lifestyle + data_channel_is_entertainment + data_channel_is_bus +
+  data_channel_is_socmed + data_channel_is_tech + data_channel_is_world
 
-# covariances
-log_n_tokens_title ~~ log_n_tokens_content
+# latent variables
+complexity =~ NA*log_average_token_length + log_n_unique_tokens + log_n_non_stop_words + log_n_non_stop_unique_tokens
+complexity ~~ 1*complexity
 
-log_average_token_length ~~ log_n_unique_tokens + log_n_non_stop_words + log_n_non_stop_unique_tokens
-log_n_unique_tokens ~~ log_n_non_stop_words + log_n_non_stop_unique_tokens
-log_n_non_stop_words ~~ log_n_non_stop_unique_tokens
+popularity =~ NA*log_self_reference_avg_sharess + log_kw_avg_avg + log_kw_max_avg + log_kw_avg_max + log_kw_avg_min
+popularity ~~ 1*popularity
 
-log_num_imgs ~~ log_num_videos
+subjectivity =~ NA*title_subjectivity + global_subjectivity + abs_title_subjectivity
+subjectivity ~~ 1*subjectivity
 
-log_num_hrefs ~~ log_num_self_hrefs
+polarity =~ NA*title_sentiment_polarity + global_sentiment_polarity + abs_title_sentiment_polarity
+polarity ~~ 1*polarity
 
-log_self_reference_avg_sharess ~~ log_kw_avg_avg + log_kw_max_avg + log_kw_avg_max + log_kw_avg_min
-log_kw_avg_avg ~~ log_kw_max_avg + log_kw_avg_max + log_kw_avg_min
-log_kw_max_avg ~~ log_kw_avg_max + log_kw_avg_min
-log_kw_avg_max ~~ log_kw_avg_min
+# posneg ET NA*global_rate_positive_words + rate_positive_words + avg_positive_polarity + global_rate_negative_words + rate_negative_words + avg_negative_polarity
+# posneg TT 1*posneg
+positivity =~ NA*global_rate_positive_words + rate_positive_words + avg_positive_polarity
+positivity ~~ 1*positivity
+negativity =~ NA*global_rate_negative_words + rate_negative_words + avg_negative_polarity
+negativity ~~ 1*negativity
 
-title_subjectivity ~~ global_subjectivity + abs_title_subjectivity
-global_subjectivity ~~ abs_title_subjectivity
+sources =~ NA*log_num_hrefs + log_num_self_hrefs
+sources ~~ 1*sources
 
-title_sentiment_polarity ~~ global_sentiment_polarity + abs_title_sentiment_polarity
-global_sentiment_polarity ~~ abs_title_sentiment_polarity
+# residual covariances
+log_n_tokens_content ~~ log_n_tokens_title + log_num_imgs + log_num_videos
+complexity ~~ log_n_tokens_content + sources + subjectivity
+subjectivity ~~ sources + polarity
+polarity ~~ positivity + negativity
+positivity ~~ negativity
 
-global_rate_positive_words ~~ rate_positive_words + avg_positive_polarity + global_rate_negative_words + rate_negative_words + avg_negative_polarity
-rate_positive_words ~~ avg_positive_polarity + global_rate_negative_words + rate_negative_words + avg_negative_polarity
-avg_positive_polarity ~~ global_rate_negative_words + rate_negative_words + avg_negative_polarity
-global_rate_negative_words ~~ rate_negative_words + avg_negative_polarity
-rate_negative_words ~~ avg_negative_polarity
 
+# residual cluster covariances
 LDA_00 ~~ LDA_01 + LDA_02 + LDA_03 + LDA_04
 LDA_01 ~~ LDA_02 + LDA_03 + LDA_04
 LDA_02 ~~ LDA_03 + LDA_04
