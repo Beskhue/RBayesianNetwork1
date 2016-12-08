@@ -36,9 +36,9 @@ preprocess = function(d) {
   test <- data.frame(d[-fit_indices, ]);
   
   # Set ordered data as being ordered
-  categorical_var_names <- get_categorical_var_names();
-  fit[,categorical_var_names] <- lapply(fit[,categorical_var_names], ordered);
-  test[,categorical_var_names] <- lapply(test[,categorical_var_names], ordered);
+  #categorical_var_names <- get_categorical_var_names();
+  #fit[,categorical_var_names] <- lapply(fit[,categorical_var_names], ordered);
+  #test[,categorical_var_names] <- lapply(test[,categorical_var_names], ordered);
   
   
   partition <- list(fit, test);
