@@ -14,8 +14,12 @@ testData <- d[['test']];
 model <- readLines('model_all.lav')
 
 # Fit measurement model
-lv <- fitMeasurementModels(model, fitData)
-pars <- lv$pars; fits <- lv$fits; lv <- lv$lv
+measurementModels <- fitMeasurementModels(model, fitData)
+pars <- measurementModels$pars; fits <- measurementModels$fits; lv <- measurementModels$lv
+
+
+# Compute latent variable values of test data
+lvtest <- compute_lv(measurementModels, testData)
 
 # Run lavaan
 #fit <- sem(model, data=fitData, orthogonal=TRUE)
