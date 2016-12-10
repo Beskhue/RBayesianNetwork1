@@ -5,28 +5,24 @@ source('Preprocess.R')
 source('TwoStep.R')
 source('Inference.R')
 
-d <- preprocess(readData())
+#d <- preprocess(readData())
 
-fitData <- d[['fit']];
-testData <- d[['test']];
+#fitData <- d[['fit']];
+#testData <- d[['test']];
 
 # Read in Lavaan model
 model <- readLines('model_all.lav')
 
-# Fit measurement model
-measurementModels <- fitMeasurementModels(model, fitData)
-pars <- measurementModels$pars; fits <- measurementModels$fits; lv <- measurementModels$lv
+# Fit model with two-step procedure
+models <- fitTwoStep(model, fitData)
 
-
-# Compute latent variable values of test data
-lvtest <- compute_lv(measurementModels, testData)
-
-# Run lavaan
-#fit <- sem(model, data=fitData, orthogonal=TRUE)
+# Extract information
+measpars <- models$meas$pars; measfits <- models$meas$fits; lv <- models$meas$lv
+structpars <- models$struct$pars; structfit <- models$struct$fit
 
 # Output model summary
-#summary(fit, standardized=TRUE)
+summary(structfit, standardized=TRUE)
 
-# Plot diagram
+# for reference: how to plot SEM diagram
 #semPaths(fit, nCharNodes=10, sizeMan=10, sizeLat=16, sizeInt=4)
 
