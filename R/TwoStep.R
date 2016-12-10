@@ -24,7 +24,7 @@ fitMeasurementModels <- function(model, fitData) {
   while(line < length(model))
   {
     line <- line + 1
-    if(grepl('#', model[line]) || !grepl('=~', model[line])) { # if this line defines a latent variable
+    if(grepl('^#', model[line]) || !grepl('=~', model[line])) { # if this line defines a latent variable
       next
     }
     
@@ -72,7 +72,7 @@ fitStructuralModel <- function(model, fitData, measurementModels) {
   line <- 0
   while(line < length(model)) {
     line <- line + 1
-    if(grepl('#', model[line]) || grepl('=~', model[line]) ||
+    if(grepl('^#', model[line]) || grepl('=~', model[line]) ||
        grepl('^(\\w*)\\h*~~\\h*1\\h*\\*\\h*(\\1)$', model[line], perl=TRUE)) { # x ~~ 1*x
       
       model[line] <- ''
