@@ -5,10 +5,10 @@ source('Preprocess.R')
 source('TwoStep.R')
 source('Inference.R')
 
-#d <- preprocess(readData())
+d <- preprocess(readData())
 
-#fitData <- d[['fit']];
-#testData <- d[['test']];
+fitData <- d[['fit']];
+testData <- d[['test']];
 
 # Read in Lavaan model
 model <- readLines('model_all.lav')
@@ -19,6 +19,10 @@ models <- fitTwoStep(model, fitData)
 # Extract information
 measpars <- models$meas$pars; measfits <- models$meas$fits; lv <- models$meas$lv
 structpars <- models$struct$pars; structfit <- models$struct$fit
+
+# Output error
+error <- test_error_two_step(models, testData)
+cat(sprintf('Mean absolute error on log scale: %g\n', error))
 
 # Output model summary
 summary(structfit, standardized=TRUE)

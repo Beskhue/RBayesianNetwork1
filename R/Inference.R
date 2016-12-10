@@ -63,3 +63,28 @@ predict_model = function(fit, d) {
   
   return(predictions);
 }
+
+test_error_two_step = function(models, d) {
+  predictions <- predict_model_two_step(models, d)
+  error <- sum(abs(d["log_shares"] - predictions))/nrow(d);
+  return(error);
+}
+
+predict_model_two_step = function(models, d) {
+  # Extract regression parameters
+  pars <- models$struct$pars
+  pars <- pars[pars$op == '~', c('rhs', 'est')]
+  pars <- data.frame(pars[,'est'], row.names=pars[,'rhs'])
+  
+  # Compute values of latent variables
+  lv <- compute_lv(models$meas, d)
+  d <- data.frame(d, lv)
+  
+  predictions <- rep(0, nrow(d))
+  
+  for(var_name in rownames(pars)) {
+    predictions <- predictions + d[,var_name] * pars[var_name,]
+  }
+  
+  return(predictions)
+}
