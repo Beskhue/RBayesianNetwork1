@@ -73,7 +73,7 @@ test_error_two_step = function(models, d) {
 predict_model_two_step = function(models, d) {
   # Extract regression parameters
   pars <- models$struct$pars
-  pars <- pars[pars$op == '~', c('rhs', 'est')]
+  pars <- pars[pars$op == '~' & pars$lhs == 'log_shares', c('rhs', 'est')]
   pars <- data.frame(pars[,'est'], row.names=pars[,'rhs'])
   
   # Compute values of latent variables

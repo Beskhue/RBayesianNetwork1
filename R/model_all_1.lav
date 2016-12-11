@@ -20,10 +20,8 @@ polarity ~~ 1*polarity
 
 # posneg ET NA*global_rate_positive_words + rate_positive_words + avg_positive_polarity + global_rate_negative_words + rate_negative_words + avg_negative_polarity
 # posneg TT 1*posneg
-
 positivity =~ NA*global_rate_positive_words + rate_positive_words + avg_positive_polarity
 positivity ~~ 1*positivity
-
 negativity =~ NA*global_rate_negative_words + rate_negative_words + avg_negative_polarity
 negativity ~~ 1*negativity
 
@@ -31,21 +29,22 @@ negativity ~~ 1*negativity
 # sources TT 1*sources
 
 # residual covariances
-# log_n_tokens_content ~~ log_n_tokens_title + log_num_imgs + log_num_videos
-# complexity ~~ log_n_tokens_content + log_num_hrefs + subjectivity
-# subjectivity ~~ log_num_hrefs + polarity
-# polarity ~~ positivity + negativity
-# positivity ~~ negativity
+log_n_tokens_content ~~ log_n_tokens_title + log_num_imgs + log_num_videos
+complexity ~~ log_n_tokens_content + log_num_hrefs + subjectivity
+subjectivity ~~ log_num_hrefs + polarity
+polarity ~~ positivity + negativity
+positivity ~~ negativity
+
 
 # residual cluster covariances
-LDA_00 ~ LDA_01 + LDA_02 + LDA_03 + LDA_04
-LDA_01 ~ LDA_02 + LDA_03 + LDA_04
-LDA_02 ~ LDA_03 + LDA_04
-LDA_03 ~ LDA_04
+LDA_00 ~~ LDA_01 + LDA_02 + LDA_03 + LDA_04
+LDA_01 ~~ LDA_02 + LDA_03 + LDA_04
+LDA_02 ~~ LDA_03 + LDA_04
+LDA_03 ~~ LDA_04
 
-# data_channel_is_lifestyle ~~ data_channel_is_entertainment + data_channel_is_bus + data_channel_is_socmed + data_channel_is_tech + data_channel_is_world
-# data_channel_is_entertainment ~~ data_channel_is_bus + data_channel_is_socmed + data_channel_is_tech + data_channel_is_world
-# data_channel_is_bus ~~ data_channel_is_socmed + data_channel_is_tech + data_channel_is_world
-# data_channel_is_socmed ~~ data_channel_is_tech + data_channel_is_world
-# data_channel_is_tech ~~ data_channel_is_world
+data_channel_is_lifestyle ~~ data_channel_is_entertainment + data_channel_is_bus + data_channel_is_socmed + data_channel_is_tech + data_channel_is_world
+data_channel_is_entertainment ~~ data_channel_is_bus + data_channel_is_socmed + data_channel_is_tech + data_channel_is_world
+data_channel_is_bus ~~ data_channel_is_socmed + data_channel_is_tech + data_channel_is_world
+data_channel_is_socmed ~~ data_channel_is_tech + data_channel_is_world
+data_channel_is_tech ~~ data_channel_is_world
 
