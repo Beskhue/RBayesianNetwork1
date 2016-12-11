@@ -1,5 +1,5 @@
 # total regression formula
-log_shares ~ log_n_tokens_title + log_n_tokens_content + complexity +
+log_shares ~ log_n_tokens_title + log_n_tokens_content + complexity + log_self_reference_avg_sharess + 
   log_num_imgs + log_num_videos + log_num_hrefs + log_num_self_hrefs + popularity + subjectivity +
   polarity + positivity + negativity + LDA_00 + LDA_01 + LDA_02 + LDA_03 + LDA_04 +
   data_channel_is_lifestyle + data_channel_is_entertainment + data_channel_is_bus +
@@ -9,7 +9,7 @@ log_shares ~ log_n_tokens_title + log_n_tokens_content + complexity +
 complexity =~ NA*log_average_token_length + log_n_unique_tokens + log_n_non_stop_words + log_n_non_stop_unique_tokens
 complexity ~~ 1*complexity
 
-popularity =~ NA*log_self_reference_avg_sharess + log_kw_avg_avg + log_kw_max_avg + log_kw_avg_max + log_kw_avg_min
+popularity =~ NA*log_kw_avg_avg + log_kw_max_avg + log_kw_avg_max + log_kw_avg_min
 popularity ~~ 1*popularity
 
 subjectivity =~ NA*title_subjectivity + global_subjectivity + abs_title_subjectivity
