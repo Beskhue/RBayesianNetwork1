@@ -1,1 +1,1 @@
-discrete_shares =~ log_kw_avg_avg + log_kw_max_avg + log_kw_avg_max + log_kw_avg_min
+log_shares ~ log_n_tokens_title + log_n_tokens_content + log_n_non_stop_words
