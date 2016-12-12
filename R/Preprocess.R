@@ -24,6 +24,18 @@ preprocess = function(d) {
     d[[ratio_var_name]] <- ratios;
   }
   
+  # calculate log length ratios
+  for(v in get_names_to_turn_into_ratio()) {
+    if(!v %in% get_names_to_log()) {
+      next
+    }
+    
+    logratio_var_name <- paste('logratio_', v, sep='');
+    log_var_name <- paste('log_', v, sep='');
+    
+    d[[logratio_var_name]] <- d[[log_var_name]] - d[['log_n_tokens_content']];
+  }
+  
   # convert to zero mean, unit variance
   for(v in get_names_to_standardise()) {
     d[[v]] = scale(d[[v]]);
