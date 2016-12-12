@@ -6,7 +6,10 @@ source('TwoStep.R')
 source('Inference.R')
 source('util.R')
 
-d <- preprocess(readData())
+d <- readData()
+#d <- remove_data_errors(d)
+#d <- remove_empty_articles(d)
+d <- preprocess(d)
 
 fitData <- d[['fit']];
 testData <- d[['test']];
