@@ -6,7 +6,7 @@ log_shares ~ log_n_tokens_title + log_n_tokens_content + complexity + log_self_r
   data_channel_is_socmed + data_channel_is_tech + data_channel_is_world
 
 # latent variables
-complexity =~ NA*log_average_token_length + n_unique_tokens + n_non_stop_unique_tokens
+complexity =~ NA*log_average_token_length + n_unique_tokens + n_non_stop_unique_tokens + log_n_non_stop_words
 complexity ~~ 1*complexity
 
 popularity =~ NA*log_kw_avg_avg + log_kw_max_avg + log_kw_avg_max + log_kw_avg_min
