@@ -1,0 +1,130 @@
+digraph G {
+    
+    node [shape = oval, style = filled, fontsize = 9, margin = 0.01];
+    
+    layout = neato;
+    overlap = true;
+    splines = true;
+    
+    edge [len=1.4];
+    
+    /***********************************/
+    /* Define dependent variable       */
+    node [fillcolor = "#74A5DE"];
+    log_shares [label="shares"];
+    
+    /***********************************/
+    /* Define latents                  */
+    node [fillcolor = "#E67673"];
+    complexity;
+    popularity;
+    subjectivity;
+    polarity;
+    positivity;
+    negativity;
+    
+    /***********************************/
+    /* Set up latent measures          */
+    node [fillcolor = "#DCA80A"];
+    log_average_token_length [label = "avg. token length"];
+    log_average_token_length -> complexity;
+    
+    n_unique_tokens [label = "#unique"];
+    n_unique_tokens -> complexity;
+    
+    n_non_stop_unique_tokens [label = "#non-stop unique"];
+    n_non_stop_unique_tokens -> complexity;
+    
+    log_n_non_stop_words [label = "#non-stop"];
+    log_n_non_stop_words -> complexity;
+
+    /* Popularity */
+    log_kw_avg_avg [label = "kw avg. avg."];
+    log_kw_avg_avg -> popularity;
+    
+    log_kw_max_avg [label = "kw max. avg."];
+    log_kw_max_avg -> popularity;
+    
+    log_kw_avg_max [label = "kw avg. max."];
+    log_kw_avg_max -> popularity;
+    
+    log_kw_avg_min [label = "kw avg. min."];
+    log_kw_avg_min -> popularity;
+ 
+    /* Subjectivity */
+    title_subjectivity [label = "title subj."];
+    title_subjectivity -> subjectivity;
+    
+    global_subjectivity [label = "global subj."];
+    global_subjectivity -> subjectivity;
+    
+    abs_title_subjectivity [label = "abs. title subj."];
+    abs_title_subjectivity -> subjectivity;
+    
+    /* Polarity */
+    title_sentiment_polarity [label = "title polarity"];
+    title_sentiment_polarity -> polarity;
+    
+    global_sentiment_polarity [label = "global polarity"];
+    global_sentiment_polarity -> polarity;
+    
+    abs_title_sentiment_polarity [label = "abs. title polarity"];
+    abs_title_sentiment_polarity -> polarity;
+
+    /* Positivity */
+    global_rate_positive_words [label = "#global positive words"];
+    global_rate_positive_words -> positivity;
+    
+    rate_positive_words [label = "#positive words"];
+    rate_positive_words -> positivity;
+    
+    avg_positive_polarity [label = "positive polarity"];
+    avg_positive_polarity -> positivity;
+
+    /* Negativity */
+    global_rate_negative_words [label = "#global negative words"];
+    global_rate_negative_words -> negativity;
+    
+    rate_negative_words [label = "#negative words"];
+    rate_negative_words -> negativity;
+    
+    avg_negative_polarity [label = "negative polarity"];
+    avg_negative_polarity -> negativity;
+    
+    /***********************************/
+    /* Connect latents to shares       */
+    complexity -> log_shares;
+    popularity -> log_shares;
+    subjectivity -> log_shares;
+    polarity -> log_shares;
+    positivity -> log_shares;
+    negativity -> log_shares;
+    
+    /***********************************/
+    /* Directly observed variables     */
+    node[shape=oval,style=filled,fillcolor="#ABDB70"];
+    log_n_tokens_title [label = "#words title"];
+    log_n_tokens_title -> log_shares;
+    
+    log_n_tokens_content [label = "#words content"];
+    log_n_tokens_content -> log_shares;
+    
+    log_self_reference_avg_shares [label = "avg. shares of Mash. links"];
+    log_self_reference_avg_shares -> log_shares;
+    
+    log_num_imgs [label = "#images"];
+    log_num_imgs -> log_shares;
+    
+    log_num_videos [label = "#videos"];
+    log_num_videos -> log_shares;
+    
+    log_num_hrefs [label = "#links"];
+    log_num_hrefs -> log_shares;
+    
+    log_num_self_hrefs [label = "#Mash. links"];
+    log_num_self_hrefs -> log_shares;
+    
+    data_channel [label = "category"];
+    data_channel -> log_shares;
+    
+}
