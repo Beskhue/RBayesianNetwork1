@@ -39,10 +39,7 @@ preprocess = function(d) {
   # discretize
   for(v in get_names_to_discretize()) {
     discretized_var_name <- paste('discrete_', v, sep='');
-    op <- options(warn=2)
-    tt <- try(d[[discretized_var_name]] <- discretize(d[[v]], categories = 4, method = 'frequency', ordered = TRUE))
-    ifelse(is(tt, "try-error"), v, "OK")
-    1+1
+    d[[discretized_var_name]] <- discretize(d[[v]], categories = 4, method = 'frequency', ordered = TRUE)
   }
   
   # convert to zero mean, unit variance
