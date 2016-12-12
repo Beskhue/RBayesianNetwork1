@@ -1,5 +1,17 @@
 library(arules)
 
+remove_data_errors = function(d) {
+  d <- d[d$n_non_stop_unique_tokens <= 1, ]
+  
+  return(d)
+}
+
+remove_empty_articles = function(d) {
+  d <- d[d$n_tokens_content >= 1, ]
+  
+  return(d)
+}
+
 # Preprocess the model data
 preprocess = function(d) {
   var_names = get_var_names();
