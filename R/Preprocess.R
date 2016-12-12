@@ -16,11 +16,14 @@ remove_empty_articles = function(d) {
 preprocess = function(d) {
   var_names = get_var_names();
   
+  # invert stop word rate
+  d[['n_non_stop_words']] <- 1 - d$n_non_stop_words
+  
   # apply log transformations
   for(v in get_names_to_log()) {
     log_var_name = paste('log_', v, sep='');
     mindv = min(d[[v]]);
-    if(mindv < 1) {
+    if(mindv <= 0) {
       d[[log_var_name]] = log(d[[v]] + (1-mindv)); # change min. to 1 to avoid log issues
     }
     else {
