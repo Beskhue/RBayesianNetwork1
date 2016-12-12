@@ -1,7 +1,7 @@
 # total regression formula
 log_shares ~ log_n_tokens_title + log_n_tokens_content + complexity + log_self_reference_avg_sharess + 
   log_num_imgs + log_num_videos + log_num_hrefs + log_num_self_hrefs + popularity + subjectivity +
-  polarity + positivity + negativity + LDA_00 + LDA_01 + LDA_02 + LDA_03 + LDA_04 +
+  polarity + positivity + negativity +
   data_channel_is_lifestyle + data_channel_is_entertainment + data_channel_is_bus +
   data_channel_is_socmed + data_channel_is_tech + data_channel_is_world
 
@@ -38,10 +38,10 @@ negativity ~~ 1*negativity
 # positivity ~~ negativity
 
 # residual cluster covariances
-LDA_00 ~ LDA_01 + LDA_02 + LDA_03 + LDA_04
-LDA_01 ~ LDA_02 + LDA_03 + LDA_04
-LDA_02 ~ LDA_03 + LDA_04
-LDA_03 ~ LDA_04
+#LDA_00 ~ LDA_01 + LDA_02 + LDA_03 + LDA_04
+#LDA_01 ~ LDA_02 + LDA_03 + LDA_04
+#LDA_02 ~ LDA_03 + LDA_04
+#LDA_03 ~ LDA_04
 
 # data_channel_is_lifestyle ~~ data_channel_is_entertainment + data_channel_is_bus + data_channel_is_socmed + data_channel_is_tech + data_channel_is_world
 # data_channel_is_entertainment ~~ data_channel_is_bus + data_channel_is_socmed + data_channel_is_tech + data_channel_is_world
