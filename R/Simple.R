@@ -4,6 +4,14 @@ source('ReadData.R')
 source('Preprocess.R')
 source('Inference.R')
 
+d <- readData()
+d <- remove_data_errors(d)
+d <- remove_empty_articles(d)
+d <- preprocess(d)
+
+fitData <- d[['fit']]
+testData <- d[['test']]
+
 # Simple model:
 model <- readLines('model_simple.lav')
 fit <- sem(model, data = fitData)
