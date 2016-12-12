@@ -38,10 +38,6 @@ preprocess = function(d) {
   
   # discretize
   for(v in get_names_to_discretize()) {
-    cat(v)
-    cat(max(d[[v]]))
-    cat("\n")
-    cat("-----")
     discretized_var_name <- paste('discrete_', v, sep='');
     op <- options(warn=2)
     tt <- try(d[[discretized_var_name]] <- discretize(d[[v]], categories = 4, method = 'frequency', ordered = TRUE))
