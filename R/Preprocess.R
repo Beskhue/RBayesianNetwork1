@@ -1,5 +1,7 @@
 # Preprocess the model data
 preprocess = function(d) {
+  d <- calculate_ratios(d);
+  
   var_names = get_var_names();
   
   # apply log transformations
@@ -12,6 +14,14 @@ preprocess = function(d) {
     else {
       d[[log_var_name]] = log(d[[v]]);
     }
+  }
+  
+  # calculate length ratios
+  for(v in get_names_to_turn_into_ratio()) {
+    ratio_var_name <- paste('ratio_', v, sep='');
+    ratios <- d[[v]] / d[['n_tokens_content']];
+    ratios[!is.finite(ratios)] <- 0;
+    d[[ratio_var_name]] <- ratios;
   }
   
   # convert to zero mean, unit variance
@@ -67,6 +77,12 @@ get_names_to_log = function() {
            'kw_max_min', 'kw_avg_min', 'kw_min_max', 'kw_max_max', 'kw_avg_max', 
            'kw_min_avg', 'kw_max_avg', 'kw_avg_avg', 'self_reference_min_shares', 
            'self_reference_max_shares', 'self_reference_avg_sharess', 'shares'));
+}
+
+get_names_to_turn_into_ratio = function() {
+  return(c('n_unique_tokens', 'n_non_stop_words', 'n_non_stop_unique_tokens',
+           'num_hrefs', 'num_self_hrefs',
+           'num_imgs', 'num_videos'));
 }
 
 get_var_names = function() {
