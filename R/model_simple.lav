@@ -1,0 +1,1 @@
+discrete_shares =~ log_kw_avg_avg + log_kw_max_avg + log_kw_avg_max + log_kw_avg_min
