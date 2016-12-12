@@ -1,3 +1,5 @@
+library(arules)
+
 # Preprocess the model data
 preprocess = function(d) {
   d <- calculate_ratios(d);
@@ -34,6 +36,12 @@ preprocess = function(d) {
     log_var_name <- paste('log_', v, sep='');
     
     d[[logratio_var_name]] <- d[[log_var_name]] - d[['log_n_tokens_content']];
+  }
+  
+  # discretize
+  for(v in get_names_to_discretize()) {
+    discretized_var_name <- paste('discrete_', v, sep='');
+    d[[discretized_var_name]] <- discretize(d[[v]], categories = 7, method = 'frequency', ordered = TRUE);
   }
   
   # convert to zero mean, unit variance
@@ -95,6 +103,10 @@ get_names_to_turn_into_ratio = function() {
   return(c('n_unique_tokens', 'n_non_stop_words', 'n_non_stop_unique_tokens',
            'num_hrefs', 'num_self_hrefs',
            'num_imgs', 'num_videos'));
+}
+
+get_names_to_discretize = function() { 
+  return(c('shares'));
 }
 
 get_var_names = function() {
