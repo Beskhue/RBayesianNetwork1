@@ -7,8 +7,8 @@ source('Inference.R')
 source('util.R')
 
 d <- readData()
-#d <- remove_data_errors(d)
-#d <- remove_empty_articles(d)
+d <- remove_data_errors(d)
+d <- remove_empty_articles(d)
 d <- preprocess(d)
 
 fitData <- d[['fit']];
