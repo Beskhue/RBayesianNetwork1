@@ -2,8 +2,6 @@ library(arules)
 
 # Preprocess the model data
 preprocess = function(d) {
-  d <- calculate_ratios(d);
-  
   var_names = get_var_names();
   
   # apply log transformations
@@ -40,8 +38,15 @@ preprocess = function(d) {
   
   # discretize
   for(v in get_names_to_discretize()) {
+    cat(v)
+    cat(max(d[[v]]))
+    cat("\n")
+    cat("-----")
     discretized_var_name <- paste('discrete_', v, sep='');
-    d[[discretized_var_name]] <- discretize(d[[v]], categories = 7, method = 'frequency', ordered = TRUE);
+    op <- options(warn=2)
+    tt <- try(d[[discretized_var_name]] <- discretize(d[[v]], categories = 4, method = 'frequency', ordered = TRUE))
+    ifelse(is(tt, "try-error"), v, "OK")
+    1+1
   }
   
   # convert to zero mean, unit variance
@@ -106,7 +111,21 @@ get_names_to_turn_into_ratio = function() {
 }
 
 get_names_to_discretize = function() { 
-  return(c('shares'));
+  return(c('n_tokens_title', 'n_tokens_content',
+           'n_unique_tokens', 'n_non_stop_unique_tokens',
+           'num_hrefs', 'num_self_hrefs', 'num_imgs', 'num_videos', 
+           'average_token_length', 
+           'kw_min_min', 'kw_max_min', 'kw_avg_min', 'kw_min_max', 
+           'kw_avg_max', 'kw_min_avg', 'kw_max_avg', 'kw_avg_avg',
+           'self_reference_min_shares', 'self_reference_max_shares',
+           'self_reference_avg_sharess', 
+           'LDA_00', 'LDA_01', 'LDA_02', 'LDA_03', 'LDA_04', 'global_subjectivity', 
+           'global_sentiment_polarity', 'global_rate_positive_words', 
+           'global_rate_negative_words', 'rate_positive_words', 
+           'rate_negative_words', 'avg_positive_polarity', 'min_positive_polarity',
+           'avg_negative_polarity', 'min_negative_polarity',
+           'max_negative_polarity', 'title_sentiment_polarity',
+           'abs_title_sentiment_polarity', 'shares'));
 }
 
 get_var_names = function() {
