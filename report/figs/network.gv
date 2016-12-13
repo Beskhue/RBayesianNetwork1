@@ -27,69 +27,69 @@ digraph G {
     /* Set up latent measures          */
     node [fillcolor = "#DCA80A"];
     log_average_token_length [label = "avg. token length"];
-    log_average_token_length -> complexity;
+    complexity -> log_average_token_length;
     
     n_unique_tokens [label = "#unique"];
-    n_unique_tokens -> complexity;
+    complexity -> n_unique_tokens;
     
     n_non_stop_unique_tokens [label = "#non-stop unique"];
-    n_non_stop_unique_tokens -> complexity;
+    complexity -> n_non_stop_unique_tokens;
     
     log_n_non_stop_words [label = "#non-stop"];
-    log_n_non_stop_words -> complexity;
+    complexity -> log_n_non_stop_words;
 
     /* Popularity */
     log_kw_avg_avg [label = "kw avg. avg."];
-    log_kw_avg_avg -> popularity;
+    popularity -> log_kw_avg_avg;
     
     log_kw_max_avg [label = "kw max. avg."];
-    log_kw_max_avg -> popularity;
+    popularity -> log_kw_max_avg;
     
     log_kw_avg_max [label = "kw avg. max."];
-    log_kw_avg_max -> popularity;
+    popularity -> log_kw_avg_max;
     
     log_kw_avg_min [label = "kw avg. min."];
-    log_kw_avg_min -> popularity;
+    popularity -> log_kw_avg_min;
  
     /* Subjectivity */
     title_subjectivity [label = "title subj."];
-    title_subjectivity -> subjectivity;
+    subjectivity -> title_subjectivity;
     
     global_subjectivity [label = "global subj."];
-    global_subjectivity -> subjectivity;
+    subjectivity -> global_subjectivity;
     
     abs_title_subjectivity [label = "abs. title subj."];
-    abs_title_subjectivity -> subjectivity;
+    subjectivity -> abs_title_subjectivity;
     
     /* Polarity */
     title_sentiment_polarity [label = "title polarity"];
-    title_sentiment_polarity -> polarity;
+    polarity -> title_sentiment_polarity;
     
     global_sentiment_polarity [label = "global polarity"];
-    global_sentiment_polarity -> polarity;
+    polarity -> global_sentiment_polarity;
     
     abs_title_sentiment_polarity [label = "abs. title polarity"];
-    abs_title_sentiment_polarity -> polarity;
+    polarity -> abs_title_sentiment_polarity;
 
     /* Positivity */
     global_rate_positive_words [label = "#global positive words"];
-    global_rate_positive_words -> positivity;
+    positivity -> global_rate_positive_words;
     
     rate_positive_words [label = "#positive words"];
-    rate_positive_words -> positivity;
+    positivity -> rate_positive_words;
     
     avg_positive_polarity [label = "positive polarity"];
-    avg_positive_polarity -> positivity;
+    positivity -> avg_positive_polarity;
 
     /* Negativity */
     global_rate_negative_words [label = "#global negative words"];
-    global_rate_negative_words -> negativity;
+    negativity -> global_rate_negative_words;
     
     rate_negative_words [label = "#negative words"];
-    rate_negative_words -> negativity;
+    negativity -> rate_negative_words;
     
     avg_negative_polarity [label = "negative polarity"];
-    avg_negative_polarity -> negativity;
+    negativity -> avg_negative_polarity;
     
     /***********************************/
     /* Connect latents to shares       */
