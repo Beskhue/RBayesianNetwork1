@@ -90,6 +90,13 @@ preprocess = function(d) {
   return(partition);
 }
 
+filter_for_structural_inference = function(d) {
+  featureList <- get_names_for_structural_inference();
+  d$fit <- d$fit[,featureList];
+  d$test <- d$test[,featureList];
+  return(d);
+}
+
 get_names_to_standardise = function() {
    v <- get_var_names();
    do_not_standardise <- c('url', 
@@ -165,4 +172,22 @@ get_categorical_var_names = function() {
            'weekday_is_monday', 'weekday_is_tuesday',
            'weekday_is_wednesday', 'weekday_is_thursday', 'weekday_is_friday',
            'weekday_is_saturday', 'weekday_is_sunday', 'is_weekend'));
+}
+
+get_names_for_structural_inference = function() {
+  return(c('log_n_tokens_title', 'log_n_tokens_content', 'log_self_reference_avg_sharess',
+           'log_num_imgs', 'log_num_videos', 'log_num_hrefs', 'log_num_self_hrefs',
+           'data_channel_is_lifestyle', 'data_channel_is_entertainment', 'data_channel_is_bus',
+           'data_channel_is_socmed', 'data_channel_is_tech', 'data_channel_is_world'));
+}
+
+get_display_names_for_structural_inference = function() {
+  lst <- get_names_for_structural_inference();
+  lst <- gsub('_', ' ', lst);
+  lst <- gsub('log ', '', lst);
+  lst <- gsub('data channel is ', 'chan. ', lst);
+  lst <- gsub('reference', 'ref.', lst);
+  lst <- gsub('tokens', 'tok.', lst);
+  lst <- gsub('sharess', 'shares', lst);
+  return(lst);
 }
