@@ -182,9 +182,7 @@ get_names_for_structural_inference = function() {
            'title_subjectivity', 'global_subjectivity', 'abs_title_subjectivity', 'title_sentiment_polarity',
            'global_sentiment_polarity', 'abs_title_sentiment_polarity', 'global_rate_positive_words',
            'rate_positive_words', 'avg_positive_polarity', 'global_rate_negative_words', 'rate_negative_words',
-           'avg_negative_polarity', 'LDA_00', 'LDA_01', 'LDA_02', 'LDA_03', 'LDA_04',
-           'data_channel_is_lifestyle', 'data_channel_is_entertainment', 'data_channel_is_bus',
-           'data_channel_is_socmed', 'data_channel_is_tech', 'data_channel_is_world'));
+           'avg_negative_polarity', 'LDA_00', 'LDA_01', 'LDA_02', 'LDA_03', 'LDA_04'));
   
   #return(c('log_n_tokens_title', 'log_n_tokens_content', 'log_self_reference_avg_sharess',
            #'log_num_imgs', 'log_num_videos', 'log_num_hrefs', 'log_num_self_hrefs',
