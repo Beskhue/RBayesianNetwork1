@@ -175,19 +175,42 @@ get_categorical_var_names = function() {
 }
 
 get_names_for_structural_inference = function() {
-  return(c('log_n_tokens_title', 'log_n_tokens_content', 'log_self_reference_avg_sharess',
-           'log_num_imgs', 'log_num_videos', 'log_num_hrefs', 'log_num_self_hrefs',
+  return(c('log_shares', 'log_n_tokens_title', 'log_n_tokens_content', 'log_self_reference_avg_sharess',
+           'log_num_imgs', 'log_num_videos', 'log_num_hrefs', 'log_num_self_hrefs', 'log_average_token_length',
+           'log_n_unique_tokens', 'log_n_non_stop_words', 'log_n_non_stop_unique_tokens',
+           'log_kw_avg_avg', 'log_kw_max_avg', 'log_kw_avg_max', 'log_kw_avg_min',
+           'title_subjectivity', 'global_subjectivity', 'abs_title_subjectivity', 'title_sentiment_polarity',
+           'global_sentiment_polarity', 'abs_title_sentiment_polarity', 'global_rate_positive_words',
+           'rate_positive_words', 'avg_positive_polarity', 'global_rate_negative_words', 'rate_negative_words',
+           'avg_negative_polarity', 'LDA_00', 'LDA_01', 'LDA_02', 'LDA_03', 'LDA_04',
            'data_channel_is_lifestyle', 'data_channel_is_entertainment', 'data_channel_is_bus',
            'data_channel_is_socmed', 'data_channel_is_tech', 'data_channel_is_world'));
+  
+  #return(c('log_n_tokens_title', 'log_n_tokens_content', 'log_self_reference_avg_sharess',
+           #'log_num_imgs', 'log_num_videos', 'log_num_hrefs', 'log_num_self_hrefs',
+           #'data_channel_is_lifestyle', 'data_channel_is_entertainment', 'data_channel_is_bus',
+           #'data_channel_is_socmed', 'data_channel_is_tech', 'data_channel_is_world'));
 }
 
 get_display_names_for_structural_inference = function() {
   lst <- get_names_for_structural_inference();
   lst <- gsub('_', ' ', lst);
   lst <- gsub('log ', '', lst);
+  
+  lst <- gsub('sharess', 'shares', lst);
   lst <- gsub('data channel is ', 'chan. ', lst);
   lst <- gsub('reference', 'ref.', lst);
   lst <- gsub('tokens', 'tok.', lst);
-  lst <- gsub('sharess', 'shares', lst);
+  lst <- gsub('token', 'tok.', lst);
+  lst <- gsub('positive', 'pos.', lst);
+  lst <- gsub('negative', 'neg.', lst);
+  lst <- gsub('subjectivity', 'subj.', lst);
+  lst <- gsub('polarity', 'pol.', lst);
+  lst <- gsub('sentiment ', '', lst);
+  lst <- gsub('global', 'gl.', lst);
+  lst <- gsub('rate ', '', lst);
+  lst <- gsub('average', 'avg.', lst);
+  lst <- gsub(' words', '', lst);
+  lst <- gsub('unique', 'un.', lst);
   return(lst);
 }
