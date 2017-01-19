@@ -16,8 +16,4 @@ graph <- glasso(covariance, 0.1)
 correlation <- cov2cor(covariance)
 p <- pc(suffStat = list(C = correlation, n = nrow(d$fit)), p = ncol(d$fit), alpha = 0.99, indepTest = gaussCItest)
 
-
-
-qg <- qgraph(graph, label.prop=0.9, labels=get_display_names_for_structural_inference(), label.scale.equal=FALSE)
-
-
+qg <- qgraph(graph, label.prop=0.9, label.norm='LDA 00', labels=get_display_names_for_structural_inference(), label.scale.equal=FALSE)

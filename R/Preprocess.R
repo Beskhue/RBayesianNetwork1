@@ -183,6 +183,7 @@ get_names_for_structural_inference = function() {
            'global_sentiment_polarity', 'abs_title_sentiment_polarity', 'global_rate_positive_words',
            'rate_positive_words', 'avg_positive_polarity', 'global_rate_negative_words', 'rate_negative_words',
            'avg_negative_polarity', 'LDA_00', 'LDA_01', 'LDA_02', 'LDA_03', 'LDA_04'));
+           # N.B. data channels removed
   
   #return(c('log_n_tokens_title', 'log_n_tokens_content', 'log_self_reference_avg_sharess',
            #'log_num_imgs', 'log_num_videos', 'log_num_hrefs', 'log_num_self_hrefs',
