@@ -16,10 +16,10 @@ lavaan.graph <- qgraph(lavaan.edges, directed = FALSE, label.prop=0.9, label.nor
 
 covariance <- cov(d$fit)
 glasso.fit <- glasso(covariance, 0.1)
-glasso.graph <- qgraph(glasso.fit, label.prop=0.9, label.norm='LDA 00', labels=abbreviate(get_names_for_structural_inference()), label.scale.equal=FALSE)
+glasso.graph <- qgraph(glasso.fit, label.prop=0.9, label.norm='LDA 00', labels=abbreviate_names(get_names_for_structural_inference()), label.scale.equal=FALSE)
 
 correlation <- cov2cor(covariance)
-pc.fit <- pc(suffStat = list(C = correlation, n = nrow(d$fit)), labels=abbreviate(get_names_for_structural_inference()), 
+pc.fit <- pc(suffStat = list(C = correlation, n = nrow(d$fit)), labels=abbreviate_names(get_names_for_structural_inference()), 
         alpha = 1e-20, conservative = TRUE, solve.confl = TRUE, u2pd = 'relaxed', indepTest = gaussCItest);
 pc.graph <- qgraph(pc.fit, label.prop=0.9, label.norm='LDA 00', label.scale.equal=FALSE)
 

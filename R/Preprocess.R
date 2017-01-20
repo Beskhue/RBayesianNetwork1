@@ -191,7 +191,7 @@ get_names_for_structural_inference = function() {
            #'data_channel_is_socmed', 'data_channel_is_tech', 'data_channel_is_world'));
 }
 
-abbreviate = function(lst) {
+abbreviate_names = function(lst) {
   lst <- gsub('_', ' ', lst);
   lst <- gsub('log ', '', lst);
   
