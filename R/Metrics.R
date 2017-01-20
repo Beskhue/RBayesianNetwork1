@@ -1,3 +1,4 @@
+library(igraph)
 library(qgraph)
 
 # Remove edge weights from all edges
