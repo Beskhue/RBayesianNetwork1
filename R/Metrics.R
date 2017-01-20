@@ -11,12 +11,21 @@ remove_edge_weights = function(x) {
   return(x)
 }
 
+make_undirected = function(x) {
+  x <- as.undirected(x, mode = "mutual")
+  return(x)
+}
+
 # Calculate various metrics for the three graph
 # Output a data frame with a column for each graph, and a row for each metric
 calculate_metrics = function(lavaan.graph, glasso.graph, pc.graph) {
   lavaan.graph <- remove_edge_weights(lavaan.graph)
   glasso.graph <- remove_edge_weights(glasso.graph)
   pc.graph <- remove_edge_weights(pc.graph)
+  
+  lavaan.graph_u <- lavaan.graph
+  glasso.graph_u <- glasso.graph
+  pc.graph_u <- make_undirected(pc.graph)
   
   metrics <- data.frame(lavaan = numeric(), glasso = numeric(), pc = numeric())
   
