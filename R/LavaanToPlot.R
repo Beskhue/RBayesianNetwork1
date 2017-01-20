@@ -1,3 +1,5 @@
+# (Manually) plot the Lavaan structural model (without latents: instead, all nodes within a latent
+# are fully connected)
 lavaan_to_plot = function() {
   complexity <- abbreviate_names(c('log_average_token_length', 'n_unique_tokens', 'n_non_stop_unique_tokens', 'log_n_non_stop_words'))
   popularity <- abbreviate_names(c('log_kw_avg_avg', 'log_kw_max_avg', 'log_kw_avg_max', 'log_kw_avg_min'))

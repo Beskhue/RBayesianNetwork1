@@ -1,5 +1,7 @@
 library(qgraph)
 
+# Remove edge weights from all edges
+# (From qgraph 1.4.1)
 remove_edge_weights = function(x) {
   if ("qgraph"%in%class(x)) x <- as.igraph(x)
   if (!all(E(x)$weight==1)) {
@@ -8,6 +10,8 @@ remove_edge_weights = function(x) {
   return(x)
 }
 
+# Calculate various metrics for the three graph
+# Output a data frame with a column for each graph, and a row for each metric
 calculate_metrics = function(lavaan.graph, glasso.graph, pc.graph) {
   lavaan.graph <- remove_edge_weights(lavaan.graph)
   glasso.graph <- remove_edge_weights(glasso.graph)
