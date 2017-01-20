@@ -13,7 +13,7 @@ remove_edge_weights = function(x) {
 
 # Turn a directed graph into an undirected graph
 make_undirected = function(x) {
-  x <- as.undirected(x, mode = "mutual")
+  x <- as.undirected(x, mode = "collapse")
   return(x)
 }
 
