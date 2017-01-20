@@ -4,6 +4,7 @@ library(qgraph)
 source('LavaanToPlot.R')
 source('ReadData.R')
 source('Preprocess.R')
+source('Metrics.R')
 
 d <- readData()
 d <- remove_data_errors(d)
@@ -23,3 +24,4 @@ pc.fit <- pc(suffStat = list(C = correlation, n = nrow(d$fit)), labels=abbreviat
         alpha = 1e-20, conservative = TRUE, solve.confl = TRUE, u2pd = 'relaxed', indepTest = gaussCItest);
 pc.graph <- qgraph(pc.fit, label.prop=0.9, label.norm='LDA 00', label.scale.equal=FALSE)
 
+calculate_metrics(lavaan.graph, glasso.graph, pc.graph)
