@@ -44,11 +44,23 @@ calculate_metrics = function(lavaan.graph, glasso.graph, pc.graph) {
     pc = smallworldIndex(pc.graph)$index)
   metrics <- rbind(metrics, smallworld)
   
-  hub <- data.frame(row.names = c("hub"),
+  hub <- data.frame(row.names = c("shares_hub"),
     lavaan = hub.score(lavaan.graph)$vector[lavaan.share_index],
     glasso = hub.score(glasso.graph)$vector[glasso.share_index],
     pc = hub.score(pc.graph)$vector[pc.share_index])
   metrics <- rbind(metrics, hub)
+  
+  authority <- data.frame(row.names = c("shares_authority"),
+    lavaan = authority_score(lavaan.graph)$vector[lavaan.share_index],
+    glasso = authority_score(glasso.graph)$vector[glasso.share_index],
+    pc = authority_score(pc.graph)$vector[pc.share_index])
+  metrics <- rbind(metrics, authority)
+  
+  degrees <- data.frame(row.names = c("avg_dir_degree", "avg_undir_degree"),
+    lavaan = colMeans(centrality_auto(lavaan.graph)$node.centrality[,c(3,3)]),
+    glasso = colMeans(centrality_auto(glasso.graph)$node.centrality[,c(3,3)]),
+    pc = c(mean(centrality_auto(pc.graph)$node.centrality[,3]), mean(centrality_auto(pc.graph_u)$node.centrality[,3])))
+  metrics <- rbind(metrics, degrees)
   
   return(metrics)
 }
