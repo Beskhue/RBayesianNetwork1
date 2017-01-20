@@ -27,6 +27,7 @@ calculate_metrics = function(lavaan.graph, glasso.graph, pc.graph) {
   lavaan.share_index <- get_shares_index(lavaan.graph)
   glasso.share_index <- get_shares_index(glasso.graph)
   pc.share_index <- get_shares_index(pc.graph)
+  perc_directed <- mean(pc.graph$Edgelist$directed)
   
   lavaan.graph <- remove_edge_weights(lavaan.graph)
   glasso.graph <- remove_edge_weights(glasso.graph)
@@ -62,10 +63,10 @@ calculate_metrics = function(lavaan.graph, glasso.graph, pc.graph) {
     pc = colMeans(clustcoef_auto(pc.graph_u)))
   metrics <- rbind(metrics, clustcoefs)
   
-  degrees <- data.frame(row.names = c("avg_dir_degree", "avg_undir_degree"),
-    lavaan = colMeans(centrality_auto(lavaan.graph)$node.centrality[,c(3,3)]),
-    glasso = colMeans(centrality_auto(glasso.graph)$node.centrality[,c(3,3)]),
-    pc = c(mean(centrality_auto(pc.graph)$node.centrality[,3]), mean(centrality_auto(pc.graph_u)$node.centrality[,3])))
+  degrees <- data.frame(row.names = c("avg_dir_degree", "perc_directed"),
+    lavaan = c(mean(centrality_auto(lavaan.graph)$node.centrality[,3]), 0),
+    glasso = c(mean(centrality_auto(glasso.graph)$node.centrality[,3]), 0),
+    pc = c(mean(centrality_auto(pc.graph)$node.centrality[,3]), perc_directed))
   metrics <- rbind(metrics, degrees)
   
   return(metrics)
