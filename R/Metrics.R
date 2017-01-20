@@ -11,6 +11,7 @@ remove_edge_weights = function(x) {
   return(x)
 }
 
+# Turn a directed graph into an undirected graph
 make_undirected = function(x) {
   x <- as.undirected(x, mode = "mutual")
   return(x)
