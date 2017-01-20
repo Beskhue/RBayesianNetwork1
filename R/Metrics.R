@@ -56,6 +56,12 @@ calculate_metrics = function(lavaan.graph, glasso.graph, pc.graph) {
     pc = authority_score(pc.graph)$vector[pc.share_index])
   metrics <- rbind(metrics, authority)
   
+  clustcoefs <- data.frame(row.names = c("clustered"),
+    lavaan = colMeans(clustcoef_auto(lavaan.graph_u)),
+    glasso = colMeans(clustcoef_auto(glasso.graph_u)),
+    pc = colMeans(clustcoef_auto(pc.graph_u)))
+  metrics <- rbind(metrics, clustcoefs)
+  
   degrees <- data.frame(row.names = c("avg_dir_degree", "avg_undir_degree"),
     lavaan = colMeans(centrality_auto(lavaan.graph)$node.centrality[,c(3,3)]),
     glasso = colMeans(centrality_auto(glasso.graph)$node.centrality[,c(3,3)]),
